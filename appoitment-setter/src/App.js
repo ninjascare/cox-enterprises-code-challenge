@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./App.css";
 import styled from "styled-components";
 
 const TimeTable = styled.div`
@@ -8,10 +7,12 @@ const TimeTable = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 50%;
+  border: 1px solid black;
+  margin: 10vh 25vw 0vh 25vw;
   .timeslot {
     border: 1px solid black;
-    width: 30%;
+    width: 30vw;
     text-align: center;
   }
 `;
@@ -28,23 +29,26 @@ class App extends Component {
       number: ""
     },
     availableTimes: [
-      "9 a.m.",
-      "10 a.m.",
-      "11 a.m.",
-      "12 p.m.",
-      "1 p.m.",
-      "2 p.m.",
-      "3 p.m.",
-      "4 p.m.",
-      "5 p.m."
-    ]
-    // timebooked = false;
+      "9:00 a.m.",
+      "10:00 a.m.",
+      "11:00 a.m.",
+      "12:00 p.m.",
+      "1:00 p.m.",
+      "2:00 p.m.",
+      "3:00 p.m.",
+      "4:00 p.m.",
+      "5:00 p.m."
+    ],
+    timebooked: false
   };
 
   activateModal = e => {
-    e.target.style.backgroundColor = "red";
-    let value = e.target.innerHTML;
-    this.setState({ timeslot: value });
+    if (e.target.style.backgroundColor !== "red") {
+      e.target.style.backgroundColor = "red";
+      let value = e.target.innerHTML;
+      this.setState({ timeslot: value });
+      this.setState({ timebooked: false });
+    }
   };
 
   handleInput = e => {
@@ -53,16 +57,19 @@ class App extends Component {
     this.setState({ newUser: updatedNewUser });
   };
 
-  clearInput = e => {
-    let elements = document.querySelectorAll(".timeslot");
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].style.backgroundColor = "white";
+  changeColor = () => {
+    if (this.state.timebooked === true) {
+      console.log("let's change to red");
+    } else {
+      console.log("let's do nothing");
     }
-    this.setState({ newUser: this.state.blankUser });
   };
 
   handleSubmit = e => {
-    // this.setState(timebooked: )
+    this.setState(prevState => ({
+      timebooked: !prevState.timebooked
+    }));
+    this.changeColor();
   };
 
   render() {
@@ -74,8 +81,9 @@ class App extends Component {
           data-target="#exampleModalCenter"
           onClick={this.activateModal}
           className="timeslot"
+          id={i}
         >
-          "{timeslot}"
+          {timeslot}
         </div>
       );
     });
@@ -131,14 +139,14 @@ class App extends Component {
                 />
               </div>
               <div className="modal-footer">
-                <button
+                {/* <button
                   onClick={this.clearInput}
                   type="button"
                   className="btn btn-primary"
                   data-dismiss="modal"
                 >
                   Cancel All Appointments
-                </button>
+                </button> */}
                 <button
                   onClick={this.handleSubmit}
                   type="button"

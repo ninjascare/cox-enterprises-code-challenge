@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Avaliability from "./Avaliability";
+import App from "./App";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
@@ -11,11 +11,6 @@ const initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    // case "MODALPOPUP":
-    //   return [...state, {
-    //       timeslot: action.timeslot
-
-    //   }]
     default:
       return state;
   }
@@ -23,8 +18,8 @@ function reducer(state = initialState, action) {
 
 const store = createStore(reducer);
 
-const App = () => {
-  return <Avaliability />;
+const MyApp = () => {
+  return <App />;
 };
 
 ReactDOM.render(
