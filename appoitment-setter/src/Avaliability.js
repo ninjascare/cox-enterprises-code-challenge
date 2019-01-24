@@ -18,7 +18,7 @@ const TimeTable = styled.div`
   }
 `;
 
-class App extends Component {
+class Avaliability extends Component {
   state = {
     timeslot: "",
     newUser: {
@@ -177,4 +177,4 @@ const mapStateToProps = state => ({
   timeslot: state.timeslot
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(Avaliability);
