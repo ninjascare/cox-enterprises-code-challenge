@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Schedule from "./Schedule";
+import Avaliability from "./Avaliability";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
@@ -24,7 +24,7 @@ function reducer(state = initialState, action) {
 const store = createStore(reducer);
 
 const App = () => {
-  return <Schedule />;
+  return <Avaliability />;
 };
 
 ReactDOM.render(
