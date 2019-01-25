@@ -10,9 +10,12 @@ const TimeTable = styled.div`
   align-items: center;
   width: 50%;
   border: 1px solid black;
+  border-radius: 50px;
+  background-color: #abcdef;
   margin: 10vh 25vw 0vh 25vw;
   .timeslot {
     border: 1px solid black;
+    border-radius: 100px;
     width: 30vw;
     text-align: center;
   }
@@ -30,47 +33,72 @@ class Avaliability extends Component {
       number: ""
     },
     availableTimes: [
-      "9:00 a.m.",
-      "10:00 a.m.",
-      "11:00 a.m.",
-      "12:00 p.m.",
-      "1:00 p.m.",
-      "2:00 p.m.",
-      "3:00 p.m.",
-      "4:00 p.m.",
-      "5:00 p.m."
-    ],
-    timebooked: false
+      {
+        time: "9:00 a.m",
+        timebooked: false
+      },
+      {
+        time: "10:00 a.m",
+        timebooked: false
+      },
+      {
+        time: "11:00 a.m",
+        timebooked: false
+      },
+      {
+        time: "12:00 p.m",
+        timebooked: false
+      },
+      {
+        time: "1:00 p.m",
+        timebooked: false
+      },
+      {
+        time: "2:00 p.m",
+        timebooked: false
+      },
+      {
+        time: "3:00 p.m",
+        timebooked: false
+      },
+      {
+        time: "4:00 p.m",
+        timebooked: false
+      },
+      {
+        time: "5:00 p.m",
+        timebooked: false
+      }
+    ]
   };
 
-  activateModal = e => {
-    if (e.target.style.backgroundColor !== "red") {
-      e.target.style.backgroundColor = "red";
-      let value = e.target.innerHTML;
-      this.setState({ timeslot: value });
-      this.setState({ timebooked: false });
+  activateModal = (e, i) => {
+    let value = e.target.innerHTML;
+    let updatedNewUser = { ...this.state.newUser };
+    if (this.state.availableTimes[i].isTimeBooked === false) {
+      updatedNewUser["timeslot"] = value;
+      this.setState({ timeslot: value, newUser: updatedNewUser });
     }
+    e.target.style.backgroundColor = "red"; 
+    this.setState({ newUser: updatedNewUser });
+    this.clearColor();
   };
 
   handleInput = e => {
     const updatedNewUser = { ...this.state.newUser };
     updatedNewUser[e.target.name] = e.target.value;
     this.setState({ newUser: updatedNewUser });
-  };
-
-  changeColor = () => {
-    if (this.state.timebooked === true) {
-      console.log("let's change to red");
-    } else {
-      console.log("let's do nothing");
-    }
+   
   };
 
   handleSubmit = e => {
     this.setState(prevState => ({
       timebooked: !prevState.timebooked
     }));
-    this.changeColor();
+  };
+
+  clearColor = e => {
+    e.target.style.backgroundColor = "white";
   };
 
   render() {
@@ -80,11 +108,10 @@ class Avaliability extends Component {
           key={i}
           data-toggle="modal"
           data-target="#exampleModalCenter"
-          onClick={this.activateModal}
-          className="timeslot"
-          id={i}
+          onClick={e => this.activateModal(e, i)}
+          className=" timeslot"
         >
-          {timeslot}
+          {timeslot.time}
         </div>
       );
     });
@@ -92,7 +119,7 @@ class Avaliability extends Component {
     return (
       <div className="jumbotron App">
         <h1>
-          Welcome! <br /> please choose a time slot to arrive for your
+          Welcome! <br /> Please choose a time slot to arrive for your
           appointment
         </h1>
         <div className="board">
@@ -146,14 +173,14 @@ class Avaliability extends Component {
                   />
                 </div>
                 <div className="modal-footer">
-                  {/* <button
-                  onClick={this.clearInput}
-                  type="button"
-                  className="btn btn-primary"
-                  data-dismiss="modal"
-                >
-                  Cancel All Appointments
-                </button> */}
+                  <button
+                    onClick={this.clearColor}
+                    type="button"
+                    className="btn btn-primary"
+                    data-dismiss="modal"
+                  >
+                    Cancel All Appointments
+                  </button>
                   <button
                     onClick={this.handleSubmit}
                     type="button"
@@ -166,7 +193,6 @@ class Avaliability extends Component {
               </div>
             </div>
           </div>
-          {/* End Modal Code from React-strap */}
         </div>
       </div>
     );
