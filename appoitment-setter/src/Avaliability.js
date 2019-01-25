@@ -75,30 +75,24 @@ class Avaliability extends Component {
   activateModal = (e, i) => {
     let value = e.target.innerHTML;
     let updatedNewUser = { ...this.state.newUser };
-    if (this.state.availableTimes[i].isTimeBooked === false) {
+    if (this.state.availableTimes[i].timebooked === false) {
       updatedNewUser["timeslot"] = value;
       this.setState({ timeslot: value, newUser: updatedNewUser });
     }
-    e.target.style.backgroundColor = "red"; 
+    e.target.style.backgroundColor = "red";
     this.setState({ newUser: updatedNewUser });
-    this.clearColor();
   };
 
   handleInput = e => {
     const updatedNewUser = { ...this.state.newUser };
     updatedNewUser[e.target.name] = e.target.value;
     this.setState({ newUser: updatedNewUser });
-   
   };
 
   handleSubmit = e => {
     this.setState(prevState => ({
       timebooked: !prevState.timebooked
     }));
-  };
-
-  clearColor = e => {
-    e.target.style.backgroundColor = "white";
   };
 
   render() {
@@ -173,14 +167,6 @@ class Avaliability extends Component {
                   />
                 </div>
                 <div className="modal-footer">
-                  <button
-                    onClick={this.clearColor}
-                    type="button"
-                    className="btn btn-primary"
-                    data-dismiss="modal"
-                  >
-                    Cancel All Appointments
-                  </button>
                   <button
                     onClick={this.handleSubmit}
                     type="button"
