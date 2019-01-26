@@ -34,39 +34,25 @@ class Avaliability extends Component {
     },
     availableTimes: [
       {
-        time: "9:00 a.m",
+        time: "9:00 am - 10:00 am",
         timebooked: false
       },
       {
-        time: "10:00 a.m",
+        time: "11:00 am - 12:00 pm",
+        timebooked: false
+      },
+
+      {
+        time: "1:00 pm - 2:00 pm",
+        timebooked: false
+      },
+
+      {
+        time: "3:00 pm - 4:00 pm",
         timebooked: false
       },
       {
-        time: "11:00 a.m",
-        timebooked: false
-      },
-      {
-        time: "12:00 p.m",
-        timebooked: false
-      },
-      {
-        time: "1:00 p.m",
-        timebooked: false
-      },
-      {
-        time: "2:00 p.m",
-        timebooked: false
-      },
-      {
-        time: "3:00 p.m",
-        timebooked: false
-      },
-      {
-        time: "4:00 p.m",
-        timebooked: false
-      },
-      {
-        time: "5:00 p.m",
+        time: "5:00 pm - 6:00 pm",
         timebooked: false
       }
     ]
@@ -161,9 +147,10 @@ class Avaliability extends Component {
                   <input
                     onChange={this.handleInput}
                     value={this.state.newUser.number}
+                    type="tel"
                     name="number"
-                    type="text"
-                    placeholder="Your Number"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    placeholder = 'Format: 123-456-7890'
                   />
                 </div>
                 <div className="modal-footer">
