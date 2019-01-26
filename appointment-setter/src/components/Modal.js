@@ -1,6 +1,65 @@
 import React, { Component } from "react";
 
 export default class modal extends Component {
+  state = {
+    timeslot: "",
+    newUser: {
+      name: "",
+      number: ""
+    },
+    blankUser: {
+      name: "",
+      number: ""
+    },
+    availableTimes: [
+      {
+        time: "9:00 am - 10:00 am",
+        timebooked: false
+      },
+      {
+        time: "11:00 am - 12:00 pm",
+        timebooked: false
+      },
+
+      {
+        time: "1:00 pm - 2:00 pm",
+        timebooked: false
+      },
+
+      {
+        time: "3:00 pm - 4:00 pm",
+        timebooked: false
+      },
+      {
+        time: "5:00 pm - 6:00 pm",
+        timebooked: false
+      }
+    ]
+  };
+
+  activateModal = (e, i) => {
+    let value = e.target.innerHTML;
+    let updatedNewUser = { ...this.state.newUser };
+    if (this.state.availableTimes[i].timebooked === false) {
+      updatedNewUser["timeslot"] = value;
+      this.setState({ timeslot: value, newUser: updatedNewUser });
+    }
+    e.target.style.backgroundColor = "red";
+    this.setState({ newUser: updatedNewUser });
+  };
+
+  handleInput = e => {
+    const updatedNewUser = { ...this.state.newUser };
+    updatedNewUser[e.target.name] = e.target.value;
+    this.setState({ newUser: updatedNewUser });
+  };
+
+  handleSubmit = e => {
+    this.setState(prevState => ({
+      timebooked: !prevState.timebooked
+    }));
+  };
+
   render() {
     return (
       <div>
@@ -44,20 +103,13 @@ export default class modal extends Component {
                 <input
                   onChange={this.handleInput}
                   value={this.state.newUser.number}
+                  type="tel"
                   name="number"
-                  type="text"
-                  placeholder="Your Number"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  placeholder="Format: 123-456-7890"
                 />
               </div>
               <div className="modal-footer">
-                {/* <button
-                  onClick={this.clearInput}
-                  type="button"
-                  className="btn btn-primary"
-                  data-dismiss="modal"
-                >
-                  Cancel All Appointments
-                </button> */}
                 <button
                   onClick={this.handleSubmit}
                   type="button"
@@ -70,7 +122,6 @@ export default class modal extends Component {
             </div>
           </div>
         </div>
-        {/* End Modal Code from React-strap */}
       </div>
     );
   }

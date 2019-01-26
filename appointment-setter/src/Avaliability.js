@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import "./App.css";
+import Modal from "./components/Modal";
 
 const TimeTable = styled.div`
   display: flex;
@@ -106,66 +107,7 @@ class Avaliability extends Component {
           <TimeTable>
             <div>{returnTimes}</div>
           </TimeTable>
-
-          {/* Modal Code for React-strap */}
-          <div
-            className="modal fade"
-            id="exampleModalCenter"
-            tabIndex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog modal-dialog-centered" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title" id="exampleModalCenterTitle">
-                    Please enter your name and number to confirm your{" "}
-                    {this.state.timeslot} appointment
-                  </h5>
-                  <button
-                    type="button"
-                    className="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span onClick={this.clearInput} aria-hidden="true">
-                      &times;
-                    </span>
-                  </button>
-                </div>
-                <div className="modal-body">
-                  <input
-                    onChange={this.handleInput}
-                    value={this.state.newUser.name}
-                    name="name"
-                    type="text"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div className="modal-body">
-                  <input
-                    onChange={this.handleInput}
-                    value={this.state.newUser.number}
-                    type="tel"
-                    name="number"
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                    placeholder = 'Format: 123-456-7890'
-                  />
-                </div>
-                <div className="modal-footer">
-                  <button
-                    onClick={this.handleSubmit}
-                    type="button"
-                    className="btn btn-primary"
-                    data-dismiss="modal"
-                  >
-                    Book Apppointment
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Modal {...this.props} />
         </div>
       </div>
     );
